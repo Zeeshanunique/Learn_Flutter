@@ -10,16 +10,67 @@ void main() {
   );
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  // const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController _nameController = TextEditingController();
+  var myText = "Change Me";
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text("Basic Learning App"),
       ),
-      body: Container(),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Card(
+            child: Column(
+              children: <Widget>[
+                Image.asset(
+                  "assets/bg.jpg",
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  myText,
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextField(
+                    controller: _nameController,
+                    keyboardType: TextInputType.text,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      hintText: "Enter Something Here",
+                      labelText: "Name",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -48,8 +99,11 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.edit),
+        onPressed: () {
+          myText = _nameController.text;
+          setState(() {});
+        },
+        child: Icon(Icons.refresh),
       ),
     );
   }
